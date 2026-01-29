@@ -1,0 +1,50 @@
+@use 'sass:meta';
+@use 'sass:math';
+@use 'sass:map';
+@use 'breakpoints' as *;
+
+@mixin mq-min($breakpoint) {
+  @each $breakpoints, $size in $media {
+    @if $breakpoint==$breakpoints {
+      @media (min-width: $size) {
+        @content;
+      }
+    }
+  }
+}
+@mixin mq-max($breakpoint) {
+  @each $breakpoints, $size in $media {
+    @if $breakpoint==$breakpoints {
+      @media (max-width: $size) {
+        @content;
+      }
+    }
+  }
+}
+@function calculate-item-width($columns, $gap) {
+  $gaps-count: $columns - 1;
+  $total-gap-space: $gaps-count * $gap;
+  @return calc((100% - #{$total-gap-space}) / #{$columns});
+}
+@mixin break-container($clr) {
+  box-shadow: 0 0 0 100vmax $clr;
+  clip-path: inset(0 -100vmax);
+}
+@mixin bust-container {
+  margin: 0 calc(50% - 50vw);
+}
+
+@mixin container-width() {
+  @media (min-width: 768px) {
+    width: 747px;
+  }
+  @media (min-width: 992px) {
+    width: 972px;
+  }
+  @media (min-width: 1200px) {
+    width: 1178px;
+  }
+  @media (min-width: 1440px) {
+    width: 1418px;
+  }
+}
